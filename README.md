@@ -1,3 +1,56 @@
+# Debugging Exam (Changes alla' Marlene)
+
+**Bug 0:** This first bug was given to us by Chelu, however to explain it a bit, essentially the problem here is that the dots were not changing to the slashes, rather it was changing all elements to a slash (no matter if it was a dot or not a dot). So to mitigate this 2 backslashes were needed to use as a way to escape this problem. 
+
+    Original:
+     String formattedEmailAddress = emailAddress.replaceAll(".", "/"); //BUG HERE
+----------------------------------------------------------------     
+    Fixed:
+     String formattedEmailAddress = emailAddress.replaceAll("\\.", "/");
+     
+**Bug 1:** This second bug is getting a random int, however we have 3 cases not 2. If we get a random int of 2 we are limiting ourselves to two options, either 0 or 1, however if we add just one int we allow the options of 0, 1 or 2 which are the cases that we have so it makes sense to make the random int as 3 and not 2. 
+
+    Original:
+     switch (random.nextInt(2))
+----------------------------------------------------------------    
+     Fixed:
+      switch (random.nextInt(3)) {
+
+**Bug 2:** Here the problem is that the letters are never actually stored this is because of the nature of the StringBuffer constructor. Upon research, I found that this constructor takes String elements, and here we are not for some reason taking a string element with a single quote, so for that reason I attempted to replace them with the more traditional double quotation approach.  
+
+    Original:
+     word = new StringBuffer('Y');
+     word = new StringBuffer('F');
+     word = new StringBuffer('T');
+----------------------------------------------------------------
+     Fixed:
+      word = new StringBuffer("Y");
+      word = new StringBuffer("F");
+      word = new StringBuffer("T");
+
+**Bug 3:** Here the problem is that it is always taking the last option (case 2), this is because we don't have any break points after our cases of our switch statement. When we have a switch statement, after every case there should be a break otherwise even if a case is satisified, it will just move to the next case and our last case will always be the taken. 
+
+     Original:
+      case 0:
+          word = new StringBuffer('Y'); //BUGS HERE x2 --> Case statements and capacity
+      case 1:
+          word = new StringBuffer('F');
+      case 2:
+          word = new StringBuffer('T');
+----------------------------------------------------------------     
+     Fixed:   
+      case 0:
+          word = new StringBuffer("Y");
+          break;
+      case 1:
+          word = new StringBuffer("F");
+          break;
+      case 2:
+          word = new StringBuffer("T");
+          break;
+
+
+
 # iebis_swdev_exam_debugging
 Somebody from administration wanted to create a random phrase generators and created the code that you can find in Main.java for this purpose.
 
